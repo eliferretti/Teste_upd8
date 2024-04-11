@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace upd8.Domain.Entity
 {
-    [Table("Clientes")]
+    [Table("Customers")]
     public class Customer : BaseEntity<string>
     {
         public Customer() 

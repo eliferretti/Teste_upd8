@@ -22,6 +22,7 @@ namespace upd8.API.Extencions
             services.AddScoped<IGenericService<CustomerDto, AddCustomerDto, string>, CustomerService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IClientFactory, HttpClientService>();
+            services.AddHttpClient();
 
             services.AddAutoMapper(typeof(CustomerMapProfile));
         }
