@@ -9,14 +9,14 @@ namespace upd8.Infrastructure.Data
         {
         }
 
-        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<Cliente>().HasKey(c => c.Id);
+            modelBuilder.Entity<Customer>().HasKey(c => c.Id);
         }
     }
 }
