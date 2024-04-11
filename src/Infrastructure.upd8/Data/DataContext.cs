@@ -1,0 +1,22 @@
+﻿using upd8.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
+
+namespace upd8.Infrastructure.Data
+{
+    public class DataContext : DbContext
+    {
+        public DataContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DbSet<Cliente> Clientes { get; set; }
+  
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Cliente>().HasKey(c => c.Id);
+        }
+    }
+}
