@@ -12,8 +12,8 @@ using upd8.Infrastructure.Data;
 namespace upd8.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240411221811_Segunda")]
-    partial class Segunda
+    [Migration("20240411233612_primeira")]
+    partial class primeira
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,6 @@ namespace upd8.Infrastructure.Migrations
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
