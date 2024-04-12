@@ -6,7 +6,7 @@ using upd8.Infrastructure.Interfaces;
 
 namespace upd8.Aplication
 {
-    public class CustomerService : IGenericService<CustomerDto, AddCustomerDto, string>
+    public class CustomerService : IGenericService<CustomerDto, AddCustomerDto, FilterCustomerDto, string>
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
@@ -57,7 +57,7 @@ namespace upd8.Aplication
             }
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetByFilterAsync(CustomerDto data)
+        public async Task<IEnumerable<CustomerDto>> GetByFilterAsync(FilterCustomerDto data)
         {
             try
             {

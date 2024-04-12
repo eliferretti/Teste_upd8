@@ -2,6 +2,7 @@
 using upd8.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using upd8.Infrastructure.Interfaces;
+using upd8.Domain.Enuns;
 
 namespace upd8.Infrastructure.Repositories
 {
@@ -36,33 +37,30 @@ namespace upd8.Infrastructure.Repositories
         {
             IQueryable<Customer> query = _context.Customers;
 
-            if (!string.IsNullOrEmpty(data.Cpf))
+            if(!string.IsNullOrEmpty(data.Cpf))
                 query = query.Where(c => c.Cpf == data.Cpf);
 
-            if (!string.IsNullOrEmpty(data.Name))
+            if(!string.IsNullOrEmpty(data.Name))
                 query = query.Where(c => c.Name == data.Name);
 
-            if (data.BirthDate != null)
+            if(data.BirthDate != null)
                 query = query.Where(c => c.BirthDate == data.BirthDate);
+            
+            if(data.Gender == GenderEnum.Masculino)
+                query = query.Where(c => c.Gender == data.Gender);
+            else if(data.Gender == GenderEnum.Feminino)
+                query = query.Where(c => c.Gender == data.Gender);
 
             if (!string.IsNullOrEmpty(data.Adress))
                 query = query.Where(c => c.Adress == data.Adress);
 
-            if (!string.IsNullOrEmpty(data.State))
+            if(!string.IsNullOrEmpty(data.State))
                 query = query.Where(c => c.State == data.State);
 
-            if (!string.IsNullOrEmpty(data.City))
+            if(!string.IsNullOrEmpty(data.City))
                 query = query.Where(c => c.City == data.City);
 
             return await query.ToListAsync();
-
-            //return await _context.Customers.Where(c => c.Cpf == data.Cpf || 
-            //                                           c.Name == data.Name || 
-            //                                           c.BirthDate == data.BirthDate ||
-            //                                           c.Gender == data.Gender || 
-            //                                           c.Adress == data.Adress || 
-            //                                           c.State == data.State ||
-            //                                           c.City == data.City).ToListAsync();
         }
 
         public async Task<Customer> GetSingleAsync(string id)

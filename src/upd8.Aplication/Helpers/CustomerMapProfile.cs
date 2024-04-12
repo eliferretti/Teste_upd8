@@ -10,6 +10,7 @@ namespace upd8.Aplication.Helpers
         {
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Customer, AddCustomerDto>().ReverseMap();
+            CreateMap<Customer, FilterCustomerDto>().ReverseMap();
         }
     }
 }

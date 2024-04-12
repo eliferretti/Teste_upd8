@@ -11,6 +11,5 @@ namespace upd8.Aplication.Dtos
         public string Adress { get; set; }
         public string State { get; set; }
         public string City { get; set; }
-        public string CardNumber { get; set; }
     }
 }

@@ -18,6 +18,5 @@ namespace upd8.Domain.Entity
         public string Adress { get; set; }
         public string State { get; set; }
         public string City { get; set; }
-        public string CardNumber { get; set; }
     }
 }

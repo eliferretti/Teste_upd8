@@ -19,7 +19,7 @@ namespace upd8.API.Extencions
               opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<ErrorHandlerMiddleware>();
-            services.AddScoped<IGenericService<CustomerDto, AddCustomerDto, string>, CustomerService>();
+            services.AddScoped<IGenericService<CustomerDto, AddCustomerDto, FilterCustomerDto, string>, CustomerService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IClientFactory, HttpClientService>();
             services.AddHttpClient();
