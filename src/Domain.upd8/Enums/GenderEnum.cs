@@ -1,4 +1,4 @@
-﻿namespace upd8.Domain.Enuns
+﻿namespace upd8.Domain.Enums
 {
     public enum GenderEnum
     {

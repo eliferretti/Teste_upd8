@@ -1,4 +1,4 @@
-﻿using upd8.Domain.Enuns;
+﻿using upd8.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace upd8.Domain.Entity

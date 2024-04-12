@@ -7,5 +7,6 @@
         Task<bool> DeleteAsync(string id);
         Task<TDto> UpdateAsync(TDto data);
         Task<TDto> AddAsync(TAddDto data);
+        Task<TDto> GetSingleAsync(string id);
     }
 }

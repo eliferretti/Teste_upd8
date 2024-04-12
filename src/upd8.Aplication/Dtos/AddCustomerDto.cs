@@ -1,4 +1,4 @@
-﻿using upd8.Domain.Enuns;
+﻿using upd8.Domain.Enums;
 
 namespace upd8.Aplication.Dtos
 {

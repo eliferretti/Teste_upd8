@@ -2,7 +2,7 @@
 using upd8.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using upd8.Infrastructure.Interfaces;
-using upd8.Domain.Enuns;
+using upd8.Domain.Enums;
 
 namespace upd8.Infrastructure.Repositories
 {
