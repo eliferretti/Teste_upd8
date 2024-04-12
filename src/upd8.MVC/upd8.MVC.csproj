@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.upd8\upd8.Infrastructure.csproj" />
+    <ProjectReference Include="..\upd8.Aplication\upd8.Aplication.csproj" />
+  </ItemGroup>
+
 </Project>

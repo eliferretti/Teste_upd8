@@ -3,6 +3,7 @@ using upd8.Aplication.Dtos;
 using upd8.Aplication.Interfaces;
 using upd8.Domain.Entity;
 using upd8.Infrastructure.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace upd8.Aplication
 {
@@ -64,6 +65,19 @@ namespace upd8.Aplication
                 var customer = _mapper.Map<Customer>(data);
                 IEnumerable<Customer> customers = await _customerRepository.GetByFilterAsync(customer);
                 return _mapper.Map<IEnumerable<CustomerDto>>(customers);
+            }
+            catch
+            {
+                throw new Exception("Find Error!");
+            }
+        }
+
+        public async Task<CustomerDto> GetSingleAsync(string id)
+        { 
+            try
+            {
+                Customer customer = await _customerRepository.GetSingleAsync(id);
+                return _mapper.Map<CustomerDto>(customer);
             }
             catch
             {

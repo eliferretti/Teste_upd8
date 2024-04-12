@@ -4,7 +4,7 @@ using upd8.Aplication.Interfaces;
 
 namespace upd8.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -36,6 +36,21 @@ namespace upd8.API.Controllers
             {
                 IEnumerable<CustomerDto> customers = await _genericService.GetAllAsync();
                 return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"List Error. Message:{ex.Message}");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingleAsync(string id)
+        {
+            try
+            {
+                CustomerDto customer = await _genericService.GetSingleAsync(id);
+                return Ok(customer);
             }
             catch (Exception ex)
             {
