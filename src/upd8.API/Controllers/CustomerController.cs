@@ -91,7 +91,7 @@ namespace upd8.API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(string id) 
         {
             try 

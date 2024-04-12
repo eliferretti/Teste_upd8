@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Text;
 using upd8.Aplication.Dtos;
 using upd8.Infrastructure.Interfaces;
+using upd8.Infrastructure.Services;
 using upd8.MVC.Models;
 
 namespace upd8.MVC.Controllers
@@ -42,36 +43,84 @@ namespace upd8.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CustomerModel model)
         {
-            var url = "https://localhost:7220/api/v1/Customer";
-            var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
-            model.Customer = await _clientFactory.Post<CustomerDto>(url, content);
-            TempData["msg"] = "Cliente cadastrdo com sucesso!";
+            try 
+            {
+                var url = "https://localhost:7220/api/v1/Customer";
+                var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
+                model.Customer = await _clientFactory.Post<CustomerDto>(url, content);
+                if (model.Customer.Id != null)
+                    TempData["msgSuccess"] = "Cliente cadastrdo com sucesso!";
+                else
+                    TempData["msgError"] = "Erro ao tentar cadastrar";
+            }catch (Exception ex) 
+            {
+                TempData["msgError"] = $"Erro ao tentar cadastrar. {ex.Message}";
+            }
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(string id)
         {
-            var model = new CustomerModel();
-            var url = $"https://localhost:7220/api/v1/Customer/{id}";
-            model.Customer = await _clientFactory.Get<CustomerDto>(url);
-            model.Estados = await GetEstados();
-            return View(model);
+            try
+            {
+                var model = new CustomerModel();
+                var url = $"https://localhost:7220/api/v1/Customer/{id}";
+                model.Customer = await _clientFactory.Get<CustomerDto>(url);
+                model.Estados = await GetEstados();
+                return View(model);
+            }
+            catch (Exception ex) 
+            {
+                TempData["msgError"] = $"Erro ao tentar cadastrar. {ex.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(CustomerModel model)
         {
-            var url = $"https://localhost:7220/api/v1/Customer/{model.Customer.Id}";
-            var oldCstomer = await _clientFactory.Get<CustomerDto>(url);
-            
-            if(model.Customer.City == null)
-                model.Customer.City = oldCstomer.City;
+            try
+            {
+                var url = $"https://localhost:7220/api/v1/Customer/{model.Customer.Id}";
+                var oldCstomer = await _clientFactory.Get<CustomerDto>(url);
 
-            url = "https://localhost:7220/api/v1/Customer";
-            var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
-            var result = await _clientFactory.Update<CustomerDto>(url, content);
+                if (model.Customer.City == null)
+                    model.Customer.City = oldCstomer.City;
+
+                url = "https://localhost:7220/api/v1/Customer";
+                var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
+                var result = await _clientFactory.Update<CustomerDto>(url, content);
+                if (result != null)
+                    TempData["msgSuccess"] = "Cliente editado com sucesso!";
+                else
+                    TempData["msgError"] = "Erro ao tentar editar";
+            }
+            catch (Exception ex)
+            {
+                TempData["msgError"] = $"Erro ao tentar editar. {ex.Message}";
+            }
+
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Delete(string id) 
+        {
+            try 
+            {
+                var url = $"https://localhost:7220/api/v1/Customer/{id}";
+                var result = await _clientFactory.Delete(url);
+                if (result != null)
+                    TempData["msgSuccess"] = "Cliente excluido com sucesso!";
+                else
+                    TempData["msgError"] = "Erro ao tentar excluir";
+            }
+            catch (Exception ex)
+            {
+                TempData["msgError"] = $"Erro ao tentar excluir. {ex.Message}";
+            }
+     
+            return RedirectToAction("Index");
+        } 
 
         public async Task<IEnumerable<Estado>> GetEstados() 
         {

@@ -2,18 +2,26 @@
 @using upd8.MVC.Models;
 @{
     ViewData["Title"] = "Cadastro de clientes";
-    var msg = TempData["msg"];
+    var msgSuccess = TempData["msgSuccess"];
+    var msgError = TempData["msgError"];
+}
+@if (msgSuccess != null)
+{
+    <div id="alertDiv" class="alert alert-success text-center" role="alert">
+        @msgSuccess
+    </div>
+}
+@if (msgError != null)
+{
+    <div id="alertDiv" class="alert alert-success text-center" role="alert">
+        @msgError
+    </div>
 }
 <div class="container p-3 border rounded-3">
+
     <div class="mb-3">
         <img class="h-auto" src="https://www.upd8.com.br/content/agency2/images/logo_upd8_stick2.png" style="width: 70px">
     </div>
-    @if (msg != null)
-    {
-        <div class="alert alert-success text-center" role="alert">
-            @msg
-        </div>
-    }
     <div class="p-3 mb-3 border rounded-3">
         <div id="consulta-cliente">
             <h6 class="text-dark">Consulta cliente</h6>
@@ -95,8 +103,8 @@
                             foreach (var customer in Model.Customers)
                             {
                                 <tr>
-                                    <td><a class="btn btn-info" asp-action="Edit" asp-route-id="@customer.Id">Editar </a></td>
-                                    <td><button class="btn btn-danger border">Excluir</button></td>
+                                    <td><a class="btn btn-info border" asp-action="Edit" asp-route-id="@customer.Id">Editar </a></td>
+                                    <td><a class="btn btn-danger border" asp-action="Delete" asp-route-id="@customer.Id">Excluir</a></td>
                                     <td>@customer.Name</td>
                                     <td>@customer.Cpf</td>
                                     <td>@customer.BirthDate?.ToString("dd/MM/yyyy")</td>
@@ -146,3 +154,15 @@
         });
     });
 </script>
+
+<script>
+    setTimeout(function () {
+        document.getElementById('alertDiv').classList.add('hidden');
+    }, 2000); 
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
