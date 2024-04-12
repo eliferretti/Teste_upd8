@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
-    <Folder Include="Map\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.upd8\upd8.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure.upd8\upd8.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
