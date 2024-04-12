@@ -5,15 +5,15 @@
     var msg = TempData["msg"];
 }
 <div class="container p-3 border rounded-3">
-    @if(msg != null)
+    <div class="mb-3">
+        <img class="h-auto" src="https://www.upd8.com.br/content/agency2/images/logo_upd8_stick2.png" style="width: 70px">
+    </div>
+    @if (msg != null)
     {
         <div class="alert alert-success text-center" role="alert">
             @msg
         </div>
     }
-    <div class="mb-3">
-        <img class="h-auto" src="https://www.upd8.com.br/content/agency2/images/logo_upd8_stick2.png" style="width: 70px">
-    </div>
     <div class="p-3 mb-3 border rounded-3">
         <div id="consulta-cliente">
             <h6 class="text-dark">Consulta cliente</h6>
@@ -99,7 +99,7 @@
                                     <td><button class="btn btn-danger border">Excluir</button></td>
                                     <td>@customer.Name</td>
                                     <td>@customer.Cpf</td>
-                                    <td>@customer.BirthDate</td>
+                                    <td>@customer.BirthDate?.ToString("dd/MM/yyyy")</td>
                                     <td>@Model.Estados.FirstOrDefault(x => x.Id.ToString() == customer.State).Sigla</td>
                                     <td>@customer.City</td>
                                     <td>@customer.Gender</td>

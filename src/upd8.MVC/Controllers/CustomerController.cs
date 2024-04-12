@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Text;
 using upd8.Aplication.Dtos;
 using upd8.Infrastructure.Interfaces;
-using upd8.Infrastructure.Services;
 using upd8.MVC.Models;
 
 namespace upd8.MVC.Controllers
@@ -57,6 +56,21 @@ namespace upd8.MVC.Controllers
             model.Customer = await _clientFactory.Get<CustomerDto>(url);
             model.Estados = await GetEstados();
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CustomerModel model)
+        {
+            var url = $"https://localhost:7220/api/v1/Customer/{model.Customer.Id}";
+            var oldCstomer = await _clientFactory.Get<CustomerDto>(url);
+            
+            if(model.Customer.City == null)
+                model.Customer.City = oldCstomer.City;
+
+            url = "https://localhost:7220/api/v1/Customer";
+            var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
+            var result = await _clientFactory.Update<CustomerDto>(url, content);
+            return RedirectToAction("Index");
         }
 
         public async Task<IEnumerable<Estado>> GetEstados() 

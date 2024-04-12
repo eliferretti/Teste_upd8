@@ -1,7 +1,7 @@
-﻿@model upd8.MVC.Models.CustomerModel
-
+﻿@using upd8.Domain.Enums;
+@model upd8.MVC.Models.CustomerModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Cliente";
 }
 <div class="container p-3 border rounded-3">
     <div class="mb-3">
@@ -13,26 +13,27 @@
         </div>
         <div>
             <form method="post" asp-controller="Customer" asp-action="Edit">
+                @Html.HiddenFor(m => m.Customer.Id)
                 <div class="row ml-3 mb-3 float-left">
                     <div class="col-2">
                         @Html.LabelFor(m => m.Customer.Cpf)
-                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "form-control rounded-3", type = "text" })
+                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "form-control rounded-3", type = "text", pattern = "[0-9]{11}", title = "Informe exatamente 11 dígitos numéricos.", required = "required" })
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(m => m.Customer.Name)
-                        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control rounded-3", type = "text" })
+                        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control rounded-3", type = "text" , required = "required" })
                     </div>
                     <div class="col-3">
                         @Html.LabelFor(m => m.Customer.BirthDate)
-                        @Html.TextBoxFor(m => m.Customer.BirthDate, new { @class = "form-control rounded-3", type = "date" })
+                        @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control rounded-3", type = "date" , required = "required"})
                     </div>
                     <div class="col-3 mt-4">
                         @Html.LabelFor(m => m.Customer.Gender, new { @class = "ml-1"})
-                        @foreach (var gender in Enum.GetValues(typeof(upd8.Domain.Enums.GenderEnum)))
+                        @foreach (GenderEnum gender in Enum.GetValues(typeof(upd8.Domain.Enums.GenderEnum)))
                         {
                             <label>
-                                @Html.RadioButtonFor(m => m.Customer.Gender, (int)gender, new { @class = "form-check-input rounded-3" })
-                                @gender
+                                @Html.RadioButtonFor(m => m.Customer.Gender, gender, new { id = gender.ToString(), @class = "form-check-input", required = "required" })
+                                @gender.ToString()
                             </label>
                         }
                     </div>
@@ -40,11 +41,11 @@
                 <div class="row">
                     <div class="col-3">
                         @Html.LabelFor(m => m.Customer.Adress)
-                        @Html.TextBoxFor(m => m.Customer.Adress, new { @class = "form-control rounded-3", type = "text" })
+                        @Html.TextBoxFor(m => m.Customer.Adress, new { @class = "form-control rounded-3", type = "text" , required = "required" })
                     </div>
                     <div class="col-3">
                         @Html.LabelFor(m => m.Customer.State)
-                        @Html.DropDownListFor(m => m.Customer.State, new SelectList(Model.Estados, "Id", "Sigla"), "Selecione Estado", new { @class = "form-control rounded-3", id = "estado" })
+                        @Html.DropDownListFor(m => m.Customer.State, new SelectList(Model.Estados, "Id", "Sigla"), "Selecione Estado", new { @class = "form-control rounded-3", id = "estado" , required = "required" })
                     </div>
                     <div class="col-3">
                         @Html.LabelFor(m => m.Customer.City)
@@ -52,10 +53,10 @@
                     </div>
                     <div class="col-3 row mt-4">
                         <div class="col-6 text-right">
-                            <button type="submit" class="btn btn-info border rounded-3 w-100">Salvar</button>
+                            <button type="submit" class="btn btn-info border rounded-3 w-100">Editar</button>
                         </div>
                         <div class="col-6 text-right">
-                            <button type="reset" class="btn btn-light border rounded-3 w-100">Limpar</button>
+                            <button type="reset" class="btn btn-light border rounded-3 w-100">Desfazer</button>
                         </div>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                     $.each(cidades, function (index, cidade) {
                         console.log(cidade.nome)
                         cidadeSelect.append($('<option>', {
-                            value: cidade.id,
+                            value: cidade.nome,
                             text: cidade.nome
                         }));
                     });
