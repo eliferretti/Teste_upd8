@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.Text;
 using upd8.Aplication.Dtos;
 using upd8.Infrastructure.Interfaces;
-using upd8.Infrastructure.Services;
 using upd8.MVC.Models;
 
 namespace upd8.MVC.Controllers

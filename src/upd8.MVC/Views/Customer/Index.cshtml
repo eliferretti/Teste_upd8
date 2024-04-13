@@ -30,7 +30,7 @@
             <h6 class="text-dark">Consulta cliente</h6>
         </div>
         <div>
-            <form method="post" asp-controller="Customer" asp-action="Filter">
+            <form id="frm-filtro" method="post" asp-controller="Customer" asp-action="Filter">
                 <div class="row ml-3 mb-3 float-left">
                     <div class="col-2">
                         @Html.LabelFor(m => m.Customer.Cpf)
@@ -73,7 +73,7 @@
                             <button type="submit" class="btn btn-info border rounded-3 w-100">Pesquisar</button>
                         </div>
                         <div class="col-6 text-right">
-                            <button type="reset" class="btn btn-light border rounded-3 w-100">Limpar</button>
+                            <a class="btn btn-light border rounded-3 w-100" onclick="limparFormulario()">Limpar</a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,6 @@
                         text: 'Selecione Cidade'
                     }));
                     $.each(cidades, function (index, cidade) { 
-                        console.log(cidade.nome)
                         cidadeSelect.append($('<option>', {
                             value: cidade.nome,
                             text: cidade.nome
@@ -155,6 +154,40 @@
                 }
             });
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+       // $('#cidade').onclick(function () {
+            var estadoId = $('#estado').val();
+            if(estadoId != null){
+                console.log(estadoId);
+                $.ajax({
+                    url: '/Customer/ObterCidadesPorEstado',
+                    type: 'GET',
+                    data: { estadoId: estadoId },
+                    success: function (cidades) {
+                        var cidadeSelect = $('#cidade');
+                        cidadeSelect.empty();
+                        cidadeSelect.append($('<option>', {
+                            value: '',
+                            text: 'Selecione Cidade'
+                        }));
+                        $.each(cidades, function (index, cidade) {
+                            cidadeSelect.append($('<option>', {
+                                value: cidade.nome,
+                                text: cidade.nome
+                            }));
+                        });
+                    },
+                    error: function () {
+                        alert('Erro ao carregar cidades');
+                    }
+                });
+            }
+           
+        //});
     });
 </script>
 
@@ -176,8 +209,17 @@
 
 <script>
     $(document).ready(function () {
-        $('#Masculino').prop('checked', true);
+        //
+        //$('#frm-filtro').find('input[type=text], input[type=date], textarea').val('');
+        //$('#frm-filtro').find('select').val('');
+        limparFormulario();
     });
+
+    function limparFormulario() {
+        $('#frm-filtro').find('input[type=text], input[type=date], textarea').val('');
+        $('#frm-filtro').find('select').val('');
+        $('#Masculino').prop('checked', true);
+    }
 </script>
 
 <style>
