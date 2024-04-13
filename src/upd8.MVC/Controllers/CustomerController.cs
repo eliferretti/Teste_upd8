@@ -103,6 +103,25 @@ namespace upd8.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Filter(CustomerModel model)
+        {
+            try
+            {
+                var url = "https://localhost:7220/api/v1/Customer/filter";
+                var content = new StringContent(JsonConvert.SerializeObject(model.Customer), Encoding.UTF8, "application/json");
+                CustomerModel filterModel = new CustomerModel();
+                filterModel.Customers = await _clientFactory.Post<IEnumerable<CustomerDto>>(url, content);
+                filterModel.Estados = await GetEstados();
+                return View("Index", filterModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["msgError"] = $"Erro ao tentar filtrar. {ex.Message}";
+            }
+            return View("Index", model);
+        }
+
         public async Task<IActionResult> Delete(string id) 
         {
             try 

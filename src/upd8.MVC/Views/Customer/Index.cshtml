@@ -1,10 +1,13 @@
 ﻿@model upd8.MVC.Models.CustomerModel;
+@using upd8.Domain.Enums;
 @using upd8.MVC.Models;
 @{
     ViewData["Title"] = "Cadastro de clientes";
     var msgSuccess = TempData["msgSuccess"];
     var msgError = TempData["msgError"];
 }
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 @if (msgSuccess != null)
 {
     <div id="alertDiv" class="alert alert-success text-center" role="alert">
@@ -13,7 +16,7 @@
 }
 @if (msgError != null)
 {
-    <div id="alertDiv" class="alert alert-success text-center" role="alert">
+    <div id="alertDiv" class="alert alert-danger text-center" role="alert">
         @msgError
     </div>
 }
@@ -27,7 +30,7 @@
             <h6 class="text-dark">Consulta cliente</h6>
         </div>
         <div>
-            <form method="post" asp-controller="Customer" asp-action="Index">
+            <form method="post" asp-controller="Customer" asp-action="Filter">
                 <div class="row ml-3 mb-3 float-left">
                     <div class="col-2">
                         @Html.LabelFor(m => m.Customer.Cpf)
@@ -43,11 +46,11 @@
                     </div>
                     <div class="col-3 mt-4">
                         @Html.LabelFor(m => m.Customer.Gender, new { @class = "ml-1"})
-                        @foreach (var gender in Enum.GetValues(typeof(upd8.Domain.Enums.GenderEnum)))
+                        @foreach (GenderEnum gender in Enum.GetValues(typeof(upd8.Domain.Enums.GenderEnum)))
                         {
                             <label>
-                                @Html.RadioButtonFor(m => m.Customer.Gender, (int)gender, new { @class = "form-check-input rounded-3" })
-                                @gender
+                                @Html.RadioButtonFor(m => m.Customer.Gender, gender, new { id = gender.ToString(), @class = "form-check-input" })
+                                @gender.ToString()
                             </label>
                         }
                     </div>
@@ -82,7 +85,7 @@
             <h6 class="text-dark">Resultado da pesquisa</h6>
         </div>
         <div class="text-center">
-            <table class="table table-bordered">
+            <table id="myTable" class="display table table-bordered">
                 <thead>
                     <tr class="bg-light">
                         <th scope="col" class="col-1"></th>
@@ -142,7 +145,7 @@
                     $.each(cidades, function (index, cidade) { 
                         console.log(cidade.nome)
                         cidadeSelect.append($('<option>', {
-                            value: cidade.id,
+                            value: cidade.nome,
                             text: cidade.nome
                         }));
                     });
@@ -158,7 +161,23 @@
 <script>
     setTimeout(function () {
         document.getElementById('alertDiv').classList.add('hidden');
-    }, 2000); 
+    }, 5000); 
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#Masculino').prop('checked', true);
+    });
 </script>
 
 <style>
