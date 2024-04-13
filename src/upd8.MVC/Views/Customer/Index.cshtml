@@ -8,6 +8,8 @@
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 @if (msgSuccess != null)
 {
     <div id="alertDiv" class="alert alert-success text-center" role="alert">
@@ -34,7 +36,7 @@
                 <div class="row ml-3 mb-3 float-left">
                     <div class="col-2">
                         @Html.LabelFor(m => m.Customer.Cpf)
-                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "txt form-control rounded-3", type = "text" })
+                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "txt cpf form-control rounded-3", type = "text" })
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(m => m.Customer.Name)
