@@ -1,0 +1,98 @@
+﻿@model upd8.MVC.Models.CustomerModel
+
+@{
+    ViewData["Title"] = "Cadastro Cliente";
+}
+<div class="container p-3 border rounded-3">
+    <div class="mb-3">
+        <img class="h-auto" src="https://www.upd8.com.br/content/agency2/images/logo_upd8_stick2.png" style="width: 70px">
+    </div>
+    <div class="p-3 mb-3 border rounded-3">
+        <div id="consulta-cliente">
+            <h6 class="text-dark">Cadastro cliente</h6>
+        </div>
+        <div>
+            <form method="post" asp-controller="Customer" asp-action="Create">
+                <div class="row ml-3 mb-3 float-left">
+                    <div class="col-2">
+                        @Html.LabelFor(m => m.Customer.Cpf)
+                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "form-control rounded-3", type = "text", pattern = "[0-9]{11}", title = "Informe exatamente 11 dígitos numéricos.", required = "required" })
+                    </div>
+                    <div class="col-4">
+                        @Html.LabelFor(m => m.Customer.Name)
+                        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control rounded-3", type = "text" , required = "required" })
+                    </div>
+                    <div class="col-3">
+                        @Html.LabelFor(m => m.Customer.BirthDate)
+                        @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control rounded-3", type = "date" , required = "required"})
+                    </div>
+                    <div class="col-3 mt-4">
+                        @Html.LabelFor(m => m.Customer.Gender, new { @class = "ml-1"})
+                        @foreach (var gender in Enum.GetValues(typeof(upd8.Domain.Enums.GenderEnum)))
+                        {
+                            <label>
+                                @Html.RadioButtonFor(m => m.Customer.Gender, (int)gender, new { @class = "form-check-input rounded-3", required = "required" })
+                                @gender
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        @Html.LabelFor(m => m.Customer.Adress)
+                        @Html.TextBoxFor(m => m.Customer.Adress, new { @class = "form-control rounded-3", type = "text" , required = "required" })
+                    </div>
+                    <div class="col-3">
+                        @Html.LabelFor(m => m.Customer.State)
+                        @Html.DropDownListFor(m => m.Customer.State, new SelectList(Model.Estados, "Id", "Sigla"), "Selecione Estado", new { @class = "form-control rounded-3", id = "estado" , required = "required" })
+                    </div>
+                    <div class="col-3">
+                        @Html.LabelFor(m => m.Customer.City)
+                        @Html.DropDownListFor(m => m.Customer.City, new SelectList(Enumerable.Empty<SelectListItem>()), "Selecione Cidade", new { @class = "form-control rounded-3", id = "cidade" , required = "required" })
+                    </div>
+                    <div class="col-3 row mt-4">
+                        <div class="col-6 text-right">
+                            <button type="submit" class="btn btn-info border rounded-3 w-100">Salvar</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="reset" class="btn btn-light border rounded-3 w-100">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#estado').change(function () {
+            var estadoId = $(this).val();
+
+            $.ajax({
+                url: '/Customer/ObterCidadesPorEstado',
+                type: 'GET',
+                data: { estadoId: estadoId },
+                success: function (cidades) {
+                    var cidadeSelect = $('#cidade');
+                    cidadeSelect.empty();
+                    cidadeSelect.append($('<option>', {
+                        value: '',
+                        text: 'Selecione Cidade'
+                    }));
+                    $.each(cidades, function (index, cidade) {
+                        console.log(cidade.nome)
+                        cidadeSelect.append($('<option>', {
+                            value: cidade.nome,
+                            text: cidade.nome
+                        }));
+                    });
+                },
+                error: function () {
+                    alert('Erro ao carregar cidades');
+                }
+            });
+        });
+    });
+</script>

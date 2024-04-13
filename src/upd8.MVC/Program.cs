@@ -1,8 +1,13 @@
+using upd8.Infrastructure.Interfaces;
+using upd8.Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpClient();
+builder.Services.AddTransient<HttpClientService>();
+builder.Services.AddScoped<IClientFactory, HttpClientService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=customer}/{action=Index}/{id?}");
 
 app.Run();
