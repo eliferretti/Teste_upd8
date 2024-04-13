@@ -97,3 +97,36 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        var estadoId = $('#estado').val();
+        var cidadeSelecionadaTexto = $("#cidade option:selected").text();
+        console.log(cidadeSelecionadaTexto);
+        if (estadoId != null) {
+            console.log(estadoId);
+            $.ajax({
+                url: '/Customer/ObterCidadesPorEstado',
+                type: 'GET',
+                data: { estadoId: estadoId },
+                success: function (cidades) {
+                    var cidadeSelect = $('#cidade');
+                    cidadeSelect.empty();
+                    cidadeSelect.append($('<option>', {
+                        value: '',
+                        text: cidadeSelecionadaTexto
+                    }));
+                    $.each(cidades, function (index, cidade) {
+                        cidadeSelect.append($('<option>', {
+                            value: cidade.nome,
+                            text: cidade.nome
+                        }));
+                    });
+                },
+                error: function () {
+                    alert('Erro ao carregar cidades');
+                }
+            });
+        }
+    });
+</script>
