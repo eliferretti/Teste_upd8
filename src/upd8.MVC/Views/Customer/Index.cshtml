@@ -110,7 +110,7 @@
                             foreach (var customer in Model.Customers)
                             {
                                 <tr>
-                                    <td><a class="btn btn-info border" asp-action="Edit" asp-route-id="@customer.Id">Editar </a></td>
+                                    <td><a class="btn btn-success border" asp-action="Edit" asp-route-id="@customer.Id">Editar </a></td>
                                     <td><a class="btn btn-danger border" asp-action="Delete" asp-route-id="@customer.Id">Excluir</a></td>
                                     <td>@customer.Name</td>
                                     <td>@customer.Cpf</td>
