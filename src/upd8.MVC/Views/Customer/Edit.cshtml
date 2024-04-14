@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Editar Cliente";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="container p-3 border rounded-3">
     <div class="mb-3">
         <img class="h-auto" src="https://www.upd8.com.br/content/agency2/images/logo_upd8_stick2.png" style="width: 70px">
@@ -17,7 +18,7 @@
                 <div class="row ml-3 mb-3 float-left">
                     <div class="col-2">
                         @Html.LabelFor(m => m.Customer.Cpf)
-                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "form-control rounded-3", type = "text", pattern = "[0-9]{11}", title = "Informe exatamente 11 dígitos numéricos.", required = "required" })
+                        @Html.TextBoxFor(m => m.Customer.Cpf, new { @class = "form-control rounded-3", type = "text", pattern = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", title = "Informe o CPF no formato 000.000.000-00", required = "required", id = "customer_cpf", inputmode = "numeric" })
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(m => m.Customer.Name)
@@ -64,7 +65,6 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -128,5 +128,10 @@
                 }
             });
         }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#customer_cpf').mask('000.000.000-00', { reverse: true });
     });
 </script>
