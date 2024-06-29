@@ -3,7 +3,6 @@ using upd8.Aplication.Dtos;
 using upd8.Aplication.Interfaces;
 using upd8.Domain.Entity;
 using upd8.Infrastructure.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace upd8.Aplication
 {

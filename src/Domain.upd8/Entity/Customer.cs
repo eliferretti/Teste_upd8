@@ -8,7 +8,7 @@ namespace upd8.Domain.Entity
     {
         public Customer() 
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString(); 
         }
 
         public string Cpf { get; set; }

@@ -1,6 +1,4 @@
-﻿using upd8.Domain.Enums;
-
-namespace upd8.Domain.Interfaces
+﻿namespace upd8.Domain.Interfaces
 {
     public interface IRepository<T, TId> where T : class
     {

@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "upd8.API", "src\upd8.API\up
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "upd8.MVC", "src\upd8.MVC\upd8.MVC.csproj", "{12751FF0-43BE-433F-B54D-F59109115BF8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "upd8.Domain.Test", "src\upd8.Domain.Test\upd8.Domain.Test.csproj", "{D1953AAD-B9D0-4304-90E1-56B04D78F3BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upd8.Infrastructure.test", "src\upd8.Infrastructure.test\upd8.Infrastructure.test.csproj", "{0125C3EB-65AD-4A86-9B67-8A2206CAFD81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{12751FF0-43BE-433F-B54D-F59109115BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12751FF0-43BE-433F-B54D-F59109115BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12751FF0-43BE-433F-B54D-F59109115BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1953AAD-B9D0-4304-90E1-56B04D78F3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1953AAD-B9D0-4304-90E1-56B04D78F3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1953AAD-B9D0-4304-90E1-56B04D78F3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1953AAD-B9D0-4304-90E1-56B04D78F3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0125C3EB-65AD-4A86-9B67-8A2206CAFD81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0125C3EB-65AD-4A86-9B67-8A2206CAFD81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0125C3EB-65AD-4A86-9B67-8A2206CAFD81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0125C3EB-65AD-4A86-9B67-8A2206CAFD81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
